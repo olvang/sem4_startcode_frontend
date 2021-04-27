@@ -42,9 +42,15 @@ function LogIn({ setLoginStatus }: LoginProps) {
         return response.json();
       })
 
-      //TODO 1 --> figure out what to do with result
-
-      setLoginStatus(true)  //TODO 2 What is this, where does it come from?
+      if(result.base64AuthString){
+        localStorage.setItem("base64AuthString", result.base64AuthString);
+        localStorage.setItem("user", result.user);
+        localStorage.setItem("role", result.role);
+      setLoginStatus(true)
+      }
+      else{
+        setLoginStatus(false)
+      }
     } catch (err) {
       setError(err.message)
     }

@@ -55,6 +55,7 @@ export default function App() {
     history.push("/")
   }
 
+  console.log(isLoggedIn)
   return (
     <div>
       <Header loginMsg={isLoggedIn ? "Logout" : "Login"} isLoggedIn={isLoggedIn} setLoginStatus={setLoginStatus} />

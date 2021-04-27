@@ -13,7 +13,9 @@ type addHeaderProps = {
 
 export default function Header({ isLoggedIn, loginMsg, setLoginStatus }: addHeaderProps) {
   const logOut = () => {
-    // TODO 3 --> Figure out what to do here ??
+    localStorage.removeItem("base64AuthString");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
     setLoginStatus(false)
     makeClient()
   }
@@ -26,15 +28,20 @@ export default function Header({ isLoggedIn, loginMsg, setLoginStatus }: addHead
           <li>
             <NavLink exact activeClassName="selected" to="/">Home</NavLink>
           </li>
+          {isLoggedIn && <>
+          {localStorage.getItem("role") === 'admin' && 
           <li>
             <NavLink exact activeClassName="selected" to="/allFriends">All Friends</NavLink>
           </li>
+          }
           <li>
             <NavLink exact activeClassName="selected" to="/findFriend">Find Friend</NavLink>
           </li>
           <li>
             <NavLink exact activeClassName="selected" to="/addFriend">Add Friend</NavLink>
           </li>
+          </>
+        }
         </ul>
       </div>
       <nav className="my-2 my-md-0 me-md-3"></nav>

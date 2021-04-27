@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { IFriend } from "../interfaces/IFriend"
 import { gql, useMutation, ApolloClient } from "@apollo/client"
+import FriendHTMLForm from "./FriendHTMLForm";
 
 const ADD_FRIEND = gql`
 mutation 
@@ -37,9 +38,6 @@ interface IKeyableFriend extends IFriend {
   [key: string]: any
 }
 
-interface FriendData {
-  getAllFriends: IFriend[]
-}
 
 const AddFriend = ({ initialFriend, allowEdit }: AddFriendProps) => {
   const EMPTY_FRIEND: IFriend = { firstName: "", lastName: "", password: "", email: "" }
@@ -76,29 +74,7 @@ const AddFriend = ({ initialFriend, allowEdit }: AddFriendProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        FirstName<br />
-        <input type="text" readOnly={readOnly} id="firstName" value={friend.firstName} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        LastName <br />
-        <input readOnly={readOnly} type="text" id="lastName" value={friend.lastName} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Email <br />
-        <input readOnly={readOnly} type="email" id="email" value={friend.email} onChange={handleChange} />
-      </label>
-      <br />
-      <label>
-        Password <br />
-        <input readOnly={readOnly} type="password" id="password" value={friend.password} onChange={handleChange} />
-      </label>
-      <br /><br />
-      {!readOnly && <input type="submit" value="Submit" />}
-    </form>
+    <FriendHTMLForm handleChange={handleChange} handleSubmit={handleSubmit} friend={friend}/>
   );
 }
 
